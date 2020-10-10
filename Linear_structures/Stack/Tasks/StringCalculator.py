@@ -1,4 +1,4 @@
-from Linear_structures.Stack.Realization.recursively import *
+from Linear_structures.Stack.Implementation.recursively import *
 
 #Operator's priorities
 OPERATORS = {
@@ -80,7 +80,6 @@ class StrCalculator():
                 stack.push(token)
 
         return stack.pop()
-
 
 if __name__ == '__main__':
     calculator = StrCalculator('25 * ( 3 + 5 )')

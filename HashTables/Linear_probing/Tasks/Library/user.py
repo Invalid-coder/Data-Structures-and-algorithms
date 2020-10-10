@@ -1,7 +1,7 @@
 """
 Реалізуйте інтерфей асоційованого масиву, ключами якого є цілі числа, а значеннями - рядки.
 """
-from HashTables.Linear_probing.Realization import *
+from HashTables.Linear_probing.Implementation import *
 
 table = HashTable()
 

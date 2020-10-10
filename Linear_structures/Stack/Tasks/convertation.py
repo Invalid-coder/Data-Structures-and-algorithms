@@ -1,4 +1,4 @@
-from Linear_structures.Stack.Realization.recursively import *
+from Linear_structures.Stack.Implementation.recursively import *
 
 def getIntValue(char):
     if char.isdigit():
