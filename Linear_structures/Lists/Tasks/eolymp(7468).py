@@ -1,4 +1,4 @@
-#https://www.e-olymp.com/uk/submissions/7498918
+#https://www.e-olymp.com/uk/submissions/7498981
 
 class Node():
     def __init__(self, item):
