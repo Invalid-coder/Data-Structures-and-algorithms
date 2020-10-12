@@ -10,8 +10,6 @@ class LinkedList():
     def __init__(self, data):
         self.head = None
         self.tail = None
-        self.currLeft = None
-        self.currRight = None
         self.initList(data)
 
     def initList(self, data):
