@@ -1,33 +1,35 @@
-#https://www.e-olymp.com/uk/submissions/7510869
+#https://www.e-olymp.com/uk/submissions/7528674
 
-class Tree:
+class Tree():
     def __init__(self): self.children = {}
-    def has_children(self): return bool(self.children)
-    def add_child(self, digit): self.children[digit] = Tree()
-    def has_child(self, digit): return bool(self.children.get(digit))
-    def get_child(self, digit): return self.children[digit]
+    def hasChild(self, key): return bool(self.children.get(key))
+    def hasChildren(self): return bool(self.children)
+    def addChild(self, key): self.children[key] = Tree()
+    def getChild(self, key): return self.children[key]
     def clear(self): self.children.clear()
 
-def addPhoneNumber(phoneNumber, tree):
-    i = 0
-    node = tree
+    def addNumber(self, number):
+        i = 0
+        node = self
 
-    while i < len(phoneNumber) and node.has_child(phoneNumber[i]):
-        node = node.get_child(phoneNumber[i])
-        i += 1
+        while i < len(number) and node.hasChild(number[i]):
+            node = node.getChild(number[i])
+            i += 1
 
-    if i == len(phoneNumber):
-        return False
+        if i == len(number):
+            return False
 
-    if i != 0 and not node.has_children():
-        return False
+        if i != 0 and not node.hasChildren():
+            return False
 
-    while i < len(phoneNumber):
-        node.add_child(phoneNumber[i])
-        node = node.get_child(phoneNumber[i])
-        i += 1
+        while i < len(number):
+            node.addChild(number[i])
+            node = node.getChild(number[i])
+            i += 1
 
-    return True
+        return True
+
+
 
 if __name__ == '__main__':
     t = int(input())
@@ -35,16 +37,13 @@ if __name__ == '__main__':
 
     for i in range(t):
         n = int(input())
-        competiable = True
+        compatiable = True
 
         for j in range(n):
-            phoneNumber = input()
+            number = input()
 
-            if competiable:
-                competiable = addPhoneNumber(phoneNumber, tree)
+            if compatiable:
+                compatiable = tree.addNumber(number)
 
-        print("YES" if competiable else "NO")
+        print('YES' if compatiable else 'NO')
         tree.clear()
-
-
-
