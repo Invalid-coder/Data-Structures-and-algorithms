@@ -49,13 +49,12 @@ class BinaryTree:
                     elif node2.hasLeft() and not node1.hasLeft():
                         ans = False
 
-                    return
                 if node1.hasRight() and node2.hasRight():
                     _isSameTree(node1.rightChild, node2.rightChild)
                 else:
                     if node1.hasRight() and not node2.hasRight():
                         ans = False
-                    elif node2.hasRight() and not node1.hasLeft():
+                    elif node2.hasRight() and not node1.hasRight():
                         ans = False
             else:
                 ans = False

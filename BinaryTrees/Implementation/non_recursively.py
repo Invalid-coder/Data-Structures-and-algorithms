@@ -48,12 +48,6 @@ class BinaryTree:
     def removeRightChild(self):
         self.rightChild = None
 
-    def insert(self, key):
-        return self._insert_helper(self, key)
-
-    def search(self, key):
-        return self._search_helper(self, key)
-
     def __str__(self):
         return str(self.key)
 
@@ -73,7 +67,7 @@ class BinaryTree:
                 if node.hasRight():
                     node = node.rightChild
                 else:
-                    node.setRight()
+                    node.setRight(key)
                     break
 
     def search(self, key):
