@@ -29,6 +29,7 @@ class HashTable:
                 h = h * N + ord(key[i])
 
             return h % self.max_size
+
     def occupancy(self):
         return self.current_size / self.max_size
 
@@ -109,8 +110,6 @@ class HashTable:
                 s += '{}:{} '.format(key, value)
 
         return s
-
-
 
 if __name__ == '__main__':
     table = HashTable()

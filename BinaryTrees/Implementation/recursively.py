@@ -48,6 +48,12 @@ class BinaryTree:
     def removeRightChild(self):
         self.rightChild = None
 
+    def isLeftChild(self):
+        return self.parent.leftChild is self if not self.parent is None else False
+
+    def isRightChild(self):
+        return self.parent.rightChild is self if not self.parent is None else False
+
     def insert(self, key):
         self._insert_helper(self, key)
 
@@ -159,6 +165,8 @@ if __name__ == '__main__':
     tree.insert(12)
     node12 = tree.search(12)
     print(node12.parent)
+    print(node12.isLeftChild())
+    print(node12.isRightChild())
     tree.delete(12)
     node12 = tree.search(12)
     print(node12)
