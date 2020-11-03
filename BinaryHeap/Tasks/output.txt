@@ -1,3 +1,7 @@
-three 3
+four 9
+six 8
 one 5
-two 2
+seven 4
+tree 4
+two 6
+five 1

@@ -1,4 +1,4 @@
-#https://www.e-olymp.com/uk/submissions/7627838
+#https://www.e-olymp.com/uk/submissions/7630134
 
 class PQElement:
     def __init__(self, key, priority):
@@ -26,9 +26,6 @@ class PQElement:
     def __ge__(self, other):
         return self.mPriority >= other.mPriority
 
-    def __str__(self):
-        return str(self.key()) + ' ' + str(self.priority())
-
 class PriorityQueue:
     def __init__(self):
         self.items = [PQElement(0, 0)]
@@ -38,27 +35,24 @@ class PriorityQueue:
     def isEmpty(self):
         return len(self.items) == 1
 
-    def add(self, key, priority):
+    def insert(self, key, priority):
         el = PQElement(key, priority)
         self.size += 1
         self.items.append(el)
         self.elementsMap[key] = self.size
         self.siftUp()
 
-    def pop(self):
+    def extractMaximum(self):
         self.swap(-1, 1)
         item = self.items.pop()
         del self.elementsMap[item.key()]
         self.size -= 1
         self.siftDown()
 
-        return (item.key(), item.priority())
+        return item.key(), item.priority()
 
-    def siftDown(self, start=None):
-        if not start is None:
-            i = start
-        else:
-            i = 1
+    def siftDown(self):
+        i = 1
 
         while (2 * i) <= self.size:
             left = 2 * i
@@ -71,11 +65,8 @@ class PriorityQueue:
             else:
                 break
 
-    def siftUp(self, start=None):
-        if not start is None:
-            i = start
-        else:
-            i = len(self.items) - 1
+    def siftUp(self):
+        i = len(self.items) - 1
 
         while i > 1:
             parent = i // 2
@@ -105,34 +96,68 @@ class PriorityQueue:
             else:
                 return right
 
-    def change(self, key, priority):
+    def updatePriority(self, key, priority):
         i = self.elementsMap[key]
-        prev = self.items[i].priority()
         self.items[i].updatePriority(priority)
 
-        if priority > prev:
-            self.siftUp(i)
-        else:
-            self.siftDown(i)
+        while i > 1:
+            parent = i // 2
 
-    def execute(self, command):
-        command = command.split()
-        name = command[0].lower()
+            if self.items[i] > self.items[parent]:
+                self.swap(i, parent)
+                i = parent
+            else:
+                break
 
-        if name == "pop":
-            return self.pop()
+        return True
+
+    def clear(self):
+        self.items = [PQElement(0, 0)]
+
+def getNegativeEnergy(pq, arr, n):
+    time = 1
+    negativeEnergy = 0
+    i = 0
+
+    while i < 100001:
+        while arr[i][0] == time:
+            pq.insert(arr[i][0], arr[i][1])
+            i += 1
+
+            if i == n:
+                break
+
+        if i == n:
+            break
+
+        if pq.isEmpty():
+            if i < n:
+                time = max(time + 1, arr[i][0])
+            else:
+                time += 1
         else:
-            args = command[1:]
-            args[1] = int(args[1])
-            getattr(self, name)(*args)
+            r, w = pq.extractMaximum()
+            negativeEnergy += (time - r) * w
+            time += 1
+
+    while not pq.isEmpty():
+        r, w = pq.extractMaximum()
+        negativeEnergy += (time - r) * w
+        time += 1
+
+    return negativeEnergy
 
 if __name__ == '__main__':
+    t = int(input())
     pq = PriorityQueue()
 
-    with open("input.txt") as input:
-        with open("output.txt", 'w') as output:
-            for line in input:
-                res = pq.execute(line.rstrip())
+    for i in range(t):
+        n = int(input())
+        arr = []
 
-                if res:
-                    print(*res, file=output)
+        for j in range(n):
+            item = tuple(map(int, input().split()))
+            arr.append(item)
+
+        arr = sorted(arr, key=lambda x:x[0])
+        print(getNegativeEnergy(pq, arr, n))
