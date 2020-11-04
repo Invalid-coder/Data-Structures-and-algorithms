@@ -9,6 +9,9 @@ class PQElement:
     def key(self):
         return self.mKey
 
+    def priority(self):
+        return self.mPriority
+
     def __lt__(self, other):
         return self.mPriority < other.mPriority
 
@@ -47,8 +50,11 @@ class PriorityQueue:
 
         return root
 
-    def siftDown(self):
-        i = 1
+    def siftDown(self, start=None):
+        if start is None:
+            i = 1
+        else:
+            i = start
 
         while (2 * i) <= self.size:
             left = 2 * i
@@ -61,8 +67,11 @@ class PriorityQueue:
             else:
                 break
 
-    def siftUp(self):
-        i = len(self.items) - 1
+    def siftUp(self, start=None):
+        if start is None:
+            i = len(self.items) - 1
+        else:
+            i = start
 
         while i > 1:
             parent = i // 2
@@ -94,15 +103,12 @@ class PriorityQueue:
 
     def updatePriority(self, key, priority):
         i = self.elementsMap[key]
+        prev = self.items[i].priority()
         self.items[i].updatePriority(priority)
 
-        while i > 1:
-            parent = i // 2
-
-            if self.items[i] < self.items[parent]:
-                self.swap(i, parent)
-                i = parent
-            else:
-                break
+        if priority < prev:
+            self.siftUp(i)
+        else:
+            self.siftDown(i)
 
         return True
