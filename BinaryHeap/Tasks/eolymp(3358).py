@@ -1,3 +1,5 @@
+#https://www.e-olymp.com/uk/submissions/7647170
+
 class PQElement:
     def __init__(self, key, priority):
         self.mKey = key
@@ -12,17 +14,8 @@ class PQElement:
     def updatePriority(self, priority):
         self.mPriority = priority
 
-    def __lt__(self, other):
-        return self.mPriority < other.mPriority or self.mPriority == other.mPriority and self.mKey < other.mKey
-
-    def __le__(self, other):
-        return self.mPriority < other.mPriority or self.mPriority == other.mPriority and self.mKey <= other.mKey
-
     def __gt__(self, other):
-        return self.mPriority > other.mPriority or self.mPriority == other.mPriority and self.mKey > other.mKey
-
-    def __ge__(self, other):
-        return self.mPriority > other.mPriority or self.mPriority == other.mPriority and self.mKey >= other.mKey
+        return self.mPriority > other.mPriority or self.mPriority == other.mPriority and self.mKey < other.mKey
 
 class PriorityQueue:
     def __init__(self):
@@ -33,6 +26,9 @@ class PriorityQueue:
     def empty(self):
         return self.size == 0
 
+    def top(self):
+        return self.items[1].key() if not self.empty() else 0
+
     def insert(self, key):
         if not key in self.elementsMap:
             el = PQElement(key, 1)
@@ -42,12 +38,6 @@ class PriorityQueue:
             self.siftUp()
         else:
             self.updatePriority(key, 1)
-
-    def top(self):
-        return self.items[1].key() if not self.empty() else 0
-
-    def extractElement(self, key):
-        self.updatePriority(key, -1)
 
     def swap(self, i, j):
         key_i = self.items[i].key()
@@ -65,11 +55,11 @@ class PriorityQueue:
             else:
                 return right
 
-    def siftDown(self, start=None):
-        if start is None:
+    def siftDown(self, pos=None):
+        if pos is None:
             i = 1
         else:
-            i = start
+            i = pos
 
         while (2 * i) <= self.size:
             left = 2 * i
@@ -82,11 +72,11 @@ class PriorityQueue:
             else:
                 break
 
-    def siftUp(self, start=None):
-        if start is None:
+    def siftUp(self, pos=None):
+        if pos is None:
             i = self.size
         else:
-            i = start
+            i = pos
 
         while i > 1:
             parent = i // 2
@@ -105,7 +95,6 @@ class PriorityQueue:
         if self.items[i].priority() == 0:
             self.swap(i, -1)
             self.items.pop()
-            #self.items.pop(i)
             del self.elementsMap[key]
             self.size -= 1
             self.siftDown(i)
@@ -118,7 +107,7 @@ class PriorityQueue:
         if command == '+':
             self.insert(x)
         else:
-            self.extractElement(x)
+            self.updatePriority(x, -1)
 
         return self.top()
 
