@@ -53,6 +53,32 @@ class Graph:
         # Повертає False, якщо закінчилися неопрацьовані вершини
         return False
 
+    def has_cycle_recursive(self):
+        ans = False
+        n = len(self.adjacentMatrix)
+
+        def DFS(graph, start, visited):
+            nonlocal ans
+            visited.add(start)
+
+            for neighbor, edge in enumerate(graph[start]):
+                if edge == 1:
+                    if neighbor in visited:
+                        ans = True
+                        return
+                    else:
+                        DFS(graph, neighbor, visited)
+
+            visited.remove(start)
+
+        for i in range(n):
+            DFS(self, i, set())
+
+        return ans
+
+    def __getitem__(self, item):
+        return self.adjacentMatrix[item]
+
 if __name__ == '__main__':
     n = int(input())
     matrix = []
@@ -63,4 +89,5 @@ if __name__ == '__main__':
 
     graph = Graph(matrix)
     print(int(graph.hasCycle()))
+
 

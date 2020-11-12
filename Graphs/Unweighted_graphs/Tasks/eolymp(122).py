@@ -1,3 +1,5 @@
+#https://www.e-olymp.com/uk/submissions/7702956
+
 class Graph:
     def __init__(self, n):
         self.vertices = {}
@@ -8,18 +10,40 @@ class Graph:
     def addEdge(self, source, destination):
         self.vertices[source].append(destination)
 
-    def waysSearch(self, start, end):
-        sources = {start:None}
-        queue = [start]
+    def DFS(self, start, end, days):
+        ways = 0
+        visited = set()
 
-        while queue:
-            current = queue.pop(0)
+        def _DFS(graph, curr_day, end_day, start, end, visited):
+            nonlocal ways
 
-            for neighbor in self.vertices[current]:
-                pass
+            if curr_day >= end_day:
+                return
+
+            visited.add(start)
+
+            for neighbor in graph[start]:
+                if not neighbor in visited:
+                    if neighbor == end:
+                        ways += 1
+
+                    _DFS(graph, curr_day + 1, end_day, neighbor, end, visited)
+
+            visited.remove(start)
+
+        _DFS(self, 0, days, start, end, visited)
+
+        return ways
+
+    def __getitem__(self, vertex):
+        return self.vertices[vertex]
 
 if __name__ == '__main__':
     n, k, a, b, d = map(int, input().split())
+    graph = Graph(n)
 
     for i in range(k):
         source, destination = map(int, input().split())
+        graph.addEdge(source, destination)
+
+    print(graph.DFS(a, b, d))
