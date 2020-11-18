@@ -1,4 +1,4 @@
-#https://www.e-olymp.com/uk/submissions/7745578
+#https://www.e-olymp.com/uk/submissions/7753349
 
 class Graph:
     def __init__(self, n):
@@ -35,13 +35,13 @@ class Graph:
                         deadlock = False
 
                 if deadlock:
-                    if levels[current] % 2 == 1:# appropriate way for second player
+                    if levels[current] % 2 == 0:# appropriate way for player
                         if playerTurn:
-                            return False
-                        else:
                             return True
+                        else:
+                            return False
                     else:
-                        if playerTurn:
+                        if not playerTurn:
                             return True
                         else:
                             return False
