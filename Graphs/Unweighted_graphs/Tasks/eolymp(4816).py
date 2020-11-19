@@ -38,7 +38,7 @@ class Graph:
         return components
 
     """
-    #Second option implemented with using dfs search
+    #Second option implemented by using dfs search
     
     def dfs(self, start, visited, component):
         visited.add(start)
