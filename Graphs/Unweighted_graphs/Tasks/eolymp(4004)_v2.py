@@ -1,4 +1,4 @@
-#https://www.e-olymp.com/uk/submissions/7756801
+#https://www.e-olymp.com/uk/submissions/7768366
 
 WHITE = 0
 GRAY = 1
@@ -14,6 +14,8 @@ class Graph:
 
         if colors[start] == GRAY:
             raise Exception
+
+        colors[start] = GRAY
 
         for neighbor, edge in enumerate(self.adjacentMatrix[start]):
             if edge == 1:

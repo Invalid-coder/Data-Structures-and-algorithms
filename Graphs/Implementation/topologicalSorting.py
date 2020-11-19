@@ -34,6 +34,8 @@ def DFS(graph, vertex, stack):
     if vertex.color() == GRAY:
         raise Exception("Here is a cycle")
 
+    vertex.setColor(GRAY)
+
     for neighbor_key in graph[vertex].neighbors():
         neighbor = graph[neighbor_key]
         DFS(graph, neighbor, stack)
