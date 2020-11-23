@@ -1,3 +1,5 @@
+#https://www.e-olymp.com/uk/submissions/7804928
+
 class Graph:
     def __init__(self, n):
         self.vertices = {}
@@ -9,20 +11,22 @@ class Graph:
         self[source].append(destination)
         self[destination].append(source)
 
-    def dfs(self, start, visited):
-        visited.add(start)
-
-        for neighbor in self[start]:
-            if not neighbor in visited:
-                self.dfs(neighbor, visited)
-
     def get_components_amount(self, visited):
+        remaining = set(self.vertices.keys()) - visited
+        queue = []
         counter = 0
 
-        for key in self.vertices.keys():
-            if not key in visited:
+        while remaining:
+            if queue:
+                current = queue.pop(0)
+            else:
+                current = remaining.pop()
                 counter += 1
-                self.dfs(key, visited)
+
+            for neighbor in self[current]:
+                if neighbor in remaining:
+                    queue.append(neighbor)
+                    remaining.remove(neighbor)
 
         return counter
 
