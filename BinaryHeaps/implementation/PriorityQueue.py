@@ -112,3 +112,6 @@ class PriorityQueue:
             self.siftDown(i)
 
         return True
+
+    def __contains__(self, el):
+        return el in self.elementsMap
