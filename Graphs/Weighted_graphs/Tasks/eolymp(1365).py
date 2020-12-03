@@ -1,4 +1,4 @@
-#https://www.e-olymp.com/uk/submissions/7900599
+#https://www.e-olymp.com/uk/submissions/7906307
 
 import sys
 
@@ -35,8 +35,11 @@ class Graph:
             visited[current] = True
 
             for neighbor, edge in enumerate(self[current]):
+                if visited[neighbor]:
+                    continue
+
                 if edge != -1 and edge != 0:
-                    newDist = distances[current] + self.weight(current, neighbor)
+                    newDist = distances[current] + edge
 
                     if newDist < distances[neighbor]:
                         distances[neighbor] = newDist
@@ -44,17 +47,15 @@ class Graph:
             distance = INF
 
             for neighbor, edge in enumerate(self[current]):
-                if not visited[neighbor] and distances[neighbor] < distance:
-                    distance = distances[neighbor]
-                    start = neighbor
+                if edge != 0:
+                    if not visited[neighbor] and distances[neighbor] < distance:
+                        distance = distances[neighbor]
+                        start = neighbor
 
             if distance == INF:
                 break
 
         return distances
-
-    def weight(self, source, destination):
-        return self.adjacentMatrix[source][destination]
 
     def __len__(self):
         return len(self.adjacentMatrix)
