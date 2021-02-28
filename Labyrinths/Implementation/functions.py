@@ -63,6 +63,29 @@ def readMazeFromFile(file_name, M):
 
     return maze
 
+def getWaveMatrix(maze, start):
+    N = len(maze)
+    waveMatrix = []
+
+    for _ in range(N):
+        row = [-1] * N
+        waveMatrix.append(row)
+
+    queue = [start]
+    waveMatrix[start[0]][start[1]] = 0
+
+    while queue:
+        i, j = queue.pop(0)
+
+        for k in range(len(dj)):
+            i1 = i + di[k]
+            j1 = j + dj[k]
+
+            if waveMatrix[i1][j1] == -1 and maze[i1][j1] != WALL:
+                waveMatrix[i1][j1] = waveMatrix[i][j] + 1
+                queue.append((i1, j1))
+
+    return waveMatrix
 
 def findWay(maze, start, end):
     """
