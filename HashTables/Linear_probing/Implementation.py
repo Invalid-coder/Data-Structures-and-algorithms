@@ -86,7 +86,7 @@ class HashTable:
                 self.values[current] = None
                 self.current_size -= 1
 
-
+                return
             current = (current + 1) % self.max_size
 
     def __setitem__(self, key, value):

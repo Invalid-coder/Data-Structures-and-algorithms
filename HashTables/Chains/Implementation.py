@@ -87,3 +87,12 @@ class HashTable():
 
     def __len__(self):
         return self.current_size
+
+def f(x):
+    return 1 / ((x ** 2) + 1)
+
+if __name__ == '__main__':
+    a = 5 / 18
+    b = 4 / 9
+    print(a * f(0.11270167) + b * f(0.5) + a * f(0.88729833))
+

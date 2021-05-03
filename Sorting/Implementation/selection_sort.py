@@ -5,7 +5,6 @@ def selection_sort(array):
         maxpos = 0
 
         for j in range(1, i + 1):
-            print(i, j)
             if array[maxpos] < array[j]:
                 maxpos = j
 
